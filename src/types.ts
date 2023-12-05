@@ -1,15 +1,15 @@
 export type TUser = {
     id: string,
-    name: string,
+    nome: string,
     email: string,
-    password: string,
-    createdAt: string,
+    senha: string,
+    criadoEm: string,
   };
   
   export type TProduct = {
     id: string,
-    name: string,
-    price: number,
-    description: string,
+    nome: string,
+    preco: number,
+    descricao: string,
     imageUrl: string,
   };
