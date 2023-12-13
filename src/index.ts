@@ -1,10 +1,78 @@
-// console.log("Oi mundo!")
+import express, { Request, Response} from 'express';
+import cors from 'cors';
+import { products, users } from './database';
+import { TProduct, TUser } from "./types";
 
-import { products, users, criarUsuario, criarProduto, obterTodosUsuarios, obterTodosProdutos, procurarProdutoPeloNome, buscarProdutosPeloNome2 } from "./database";
+const app = express()
 
-console.log(users, products);
-console.log(criarProduto("prod003", "SSD gamer", 349.99, "Acelere seu sistema com velocidades incríveis de leitura e gravação.", "https://images.unsplash.com/photo"));
-console.log(obterTodosProdutos());
+app.use(express.json())
+app.use(cors())
 
-console.log(procurarProdutoPeloNome(products, "gamer"));
-console.log(buscarProdutosPeloNome2("gamer"));
+app.listen(3003, () => {
+    console.log("Servidor rodando na porta 3003")
+})
+
+app.get("/ping", (req: Request, res: Response) => {
+    res.send("Teste Projeto - Pong!")
+})
+
+//getAllUsers
+app.get("/users", (req: Request, res: Response) => {
+    res.send(users)
+})
+
+//getAllProducts
+app.get("/products", (req: Request, res: Response) =>{
+    res.send(products)
+})
+
+//findProductByName
+app.get("/products/search", (req: Request, res: Response) =>{
+   const nameToFind = req.query.name as string
+   const result: TProduct[] = products.filter((product) => {
+    return product.name.toLocaleLowerCase().includes(nameToFind.toLocaleLowerCase())
+   })
+   res.send(result)
+   if(result === undefined){
+    res.send(products)
+   }
+})
+
+//createUser
+app.post("/users", (req: Request, res: Response) => {
+    const id = req.body.id as string
+    const name = req.body.name as string
+    const email = req.body.email as string
+    const password = req.body.password as string
+
+    const newUser: TUser = {
+        id: id,
+        name: name,
+        email: email,
+        password: password,
+        createdAt: new Date().toISOString(),
+    }
+
+    users.push(newUser)
+    res.status(201).send("Cadastro realizado com sucesso!")
+})
+
+//CreateProduct
+app.post("/products", (req: Request, res: Response) => {
+    const id = req.body.id as string
+    const name = req.body.name as string
+    const price = req.body.price as number
+    const description = req.body.description as string
+    const imageUrl = req.body.imageUrl as string
+
+    const newProduct: TProduct = {
+        id: id,
+        name: name,
+        price: price,
+        description: description,
+        imageUrl: imageUrl,
+    }
+
+    products.push(newProduct)
+    res.status(201).send("Cadastro realizado com sucesso!")
+})
