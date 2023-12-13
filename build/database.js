@@ -1,81 +1,81 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.products = exports.users = exports.buscarProdutosPeloNome2 = exports.procurarProdutoPeloNome = exports.obterTodosProdutos = exports.obterTodosUsuarios = exports.criarProduto = exports.criarUsuario = void 0;
-function criarUsuario(id, nome, email, senha) {
-    const novoUsuario = {
-        id,
-        nome,
-        email,
-        senha,
-        criadoEm: new Date().toISOString()
-    };
-    exports.users.push(novoUsuario);
-    return "Cadastro realizado com sucesso!";
-}
-exports.criarUsuario = criarUsuario;
-function criarProduto(id, nome, preco, descricao, imageUrl) {
-    const novoProduto = {
-        id,
-        nome,
-        preco,
-        descricao,
-        imageUrl
-    };
-    exports.products.push(novoProduto);
-    return "Produto criado com sucesso!";
-}
-exports.criarProduto = criarProduto;
-function obterTodosUsuarios() {
-    return exports.users;
-}
-exports.obterTodosUsuarios = obterTodosUsuarios;
-function obterTodosProdutos() {
-    return exports.products;
-}
-exports.obterTodosProdutos = obterTodosProdutos;
-function procurarProdutoPeloNome(produtos, nome) {
-    const termoBusca = nome.toLowerCase();
-    const resultados = produtos.filter((produto) => {
-        return produto.nome.toLowerCase().includes(termoBusca);
-    });
-    return resultados;
-}
-exports.procurarProdutoPeloNome = procurarProdutoPeloNome;
-function buscarProdutosPeloNome2(nome) {
-    return exports.products.filter((produto) => {
-        return produto.nome.toLowerCase().includes(nome.toLowerCase());
-    });
-}
-exports.buscarProdutosPeloNome2 = buscarProdutosPeloNome2;
+exports.findProductByname = exports.searchProducts = exports.getAllProducts = exports.getAllUsers = exports.createProduct = exports.createUser = exports.products = exports.users = void 0;
 exports.users = [
     {
         id: "u001",
-        nome: "Eduardo Carvalho",
+        name: "Eduardo Carvalho",
         email: "eduardo@outlook.com",
-        senha: "edu123",
-        criadoEm: new Date().toISOString(),
+        password: "edu123",
+        createdAt: new Date().toISOString(),
     },
     {
         id: "u002",
-        nome: "Gabriela",
+        name: "Gabriela",
         email: "Gabriela@email.com",
-        senha: "G123",
-        criadoEm: new Date().toISOString(),
+        password: "G123",
+        createdAt: new Date().toISOString(),
     },
 ];
 exports.products = [
     {
         id: "prod001",
-        nome: "Mouse gamer",
-        preco: 800,
-        descricao: "Monitor gamer!",
+        name: "Mouse gamer",
+        price: 800,
+        description: "Monitor gamer!",
         imageUrl: "https://www.techtoyreviews.com/wp-content/uploads/2021/02/Acer-Nitro-VG240Y.jpg",
     },
     {
         id: "prod002",
-        nome: "PS5",
-        preco: 3000,
-        descricao: "Melhor video game do mercado!",
+        name: "PS5",
+        price: 3000,
+        description: "Melhor video game do mercado!",
         imageUrl: "https://www.impulsegamer.com/articles/wp-content/uploads/2020/11/ps5conole.jpg",
     },
 ];
+function createUser(id, name, email, password) {
+    const newUser = {
+        id,
+        name,
+        email,
+        password,
+        createdAt: new Date().toISOString(),
+    };
+    exports.users.push(newUser);
+    return "Cadastro realizado com sucesso!";
+}
+exports.createUser = createUser;
+function createProduct(id, name, price, description, imageUrl) {
+    const novoProduto = {
+        id,
+        name,
+        price,
+        description,
+        imageUrl
+    };
+    exports.products.push(novoProduto);
+    return "Produto criado com sucesso!";
+}
+exports.createProduct = createProduct;
+function getAllUsers() {
+    return exports.users;
+}
+exports.getAllUsers = getAllUsers;
+function getAllProducts() {
+    return exports.products;
+}
+exports.getAllProducts = getAllProducts;
+function searchProducts(produtos, nome) {
+    const termoBusca = nome.toLowerCase();
+    const resultados = produtos.filter((produto) => {
+        return produto.name.toLowerCase().includes(termoBusca);
+    });
+    return resultados;
+}
+exports.searchProducts = searchProducts;
+function findProductByname(nome) {
+    return exports.products.filter((produto) => {
+        return produto.name.toLowerCase().includes(nome.toLowerCase());
+    });
+}
+exports.findProductByname = findProductByname;
