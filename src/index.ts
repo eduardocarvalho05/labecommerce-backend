@@ -76,3 +76,62 @@ app.post("/products", (req: Request, res: Response) => {
     products.push(newProduct)
     res.status(201).send("Cadastro realizado com sucesso!")
 })
+
+//DeleteUser
+app.delete("/users/:id", (req: Request, res: Response) => {
+    const idParaExcluir = req.params.id.toLowerCase();
+
+    const index: number = users.findIndex((usuario) => usuario.id.toLowerCase() === idParaExcluir);
+
+    if (index >= 0) {
+        users.splice(index, 1);
+        res.send("Usúario apagado com sucesso!");
+    } else {
+        res.status(404).send("Usúario não encontrada");
+    }
+})
+
+//DeleteProducts
+app.delete("/products/:id", (req: Request, res: Response) => {
+    const idParaExcluir = req.params.id.toLowerCase()
+
+    const index: number = products.findIndex((produto) => produto.id.toLowerCase() === 
+    idParaExcluir)
+
+    if(index >= 0){
+        products.splice(index, 1);
+        res.send("Produto apagado com sucesso!")
+    } else {
+        res.status(404).send("Produto não encontrado!")
+    }
+})
+
+//Edit Product by id
+app.put("/products/:id", (req: Request, res: Response) => {
+    const idToEdit = req.params.id;
+
+    // Certifique-se de que o tipo TProduct esteja corretamente definido
+    const { id: newId, name: newName, price: newPrice, description: newDescription, imageUrl: newImageUrl } = req.body as TProduct;
+
+    // Verifique se o produto com o ID especificado existe
+    const result = products.find((produto) => produto.id === idToEdit);
+
+    if (result) {
+        console.log("Dados antes da atualização:", result);
+
+        // Valide os dados recebidos ou forneça valores padrão, se necessário
+        result.id = newId || result.id;
+        result.name = newName || result.name;
+        result.price = newPrice || result.price;
+        result.description = newDescription || result.description;
+        result.imageUrl = newImageUrl || result.imageUrl;
+
+        console.log("Dados após a atualização:", result);
+
+        // Use um código de status HTTP mais apropriado
+        res.status(200).send("Atualização realizada com sucesso!");
+    } else {
+        // Use um código de status HTTP mais apropriado
+        res.status(404).send("Produto não encontrado");
+    }
+});
