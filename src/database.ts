@@ -21,9 +21,9 @@ export const users: TUser[] = [
 export const products: TProduct[] = [
     {
       id: "prod001",
-      name: "Mouse gamer",
+      name: "Monitor gamer",
       price: 800,
-      description: "Monitor gamer!",
+      description: "Monitor gamer de alta qualidade para jogos!",
       imageUrl: "https://www.techtoyreviews.com/wp-content/uploads/2021/02/Acer-Nitro-VG240Y.jpg",
     },
     {
@@ -36,7 +36,7 @@ export const products: TProduct[] = [
   ];
 
 
-  export function createUser(id: string, name: string, email: string, password: string): string {
+export function createUser(id: string, name: string, email: string, password: string): string {
     const newUser: TUser = {
         id,
         name,
